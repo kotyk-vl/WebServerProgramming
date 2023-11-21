@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <ProjectReference Include="..\SageBook.Data\SageBook.Data.csproj" />
   </ItemGroup>
 
 </Project>
