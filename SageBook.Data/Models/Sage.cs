@@ -12,5 +12,5 @@ public partial class Sage
 
     public string? City { get; set; }
 
-    public virtual ICollection<SageBook> SageBooks { get; set; } = new List<SageBook>();
+    public virtual ICollection<Book> Books { get; set; } = new List<Book>();
 }

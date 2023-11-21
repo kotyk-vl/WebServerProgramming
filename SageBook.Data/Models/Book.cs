@@ -1,4 +1,6 @@
-﻿namespace SageBook.Data.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SageBook.Data.Models;
 
 public partial class Book
 {
@@ -8,5 +10,5 @@ public partial class Book
 
     public string? Description { get; set; }
 
-    public virtual ICollection<SageBook> SageBooks { get; set; } = new List<SageBook>();
+    public virtual ICollection<Sage> Sages { get; set; } = new List<Sage>();
 }

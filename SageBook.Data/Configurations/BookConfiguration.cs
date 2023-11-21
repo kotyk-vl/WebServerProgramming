@@ -14,6 +14,14 @@ namespace SageBook.Data.Configurations
 
             builder.Property(e => e.Description).HasMaxLength(500);
             builder.Property(e => e.Name).HasMaxLength(50);
+
+            builder.HasMany(s => s.Sages)
+                .WithMany(b => b.Books)
+                .UsingEntity<Dictionary<string, object>>("SageBook",
+                    j => j.HasOne<Sage>().WithMany().HasForeignKey("SageId"),
+                    j => j.HasOne<Book>().WithMany().HasForeignKey("BookId"),
+                    j => j.ToTable("SageBook")
+                );
         }
     }
 }

@@ -17,7 +17,7 @@ public partial class SageBookContext : DbContext
 
     public virtual DbSet<Book> Books { get; set; }
     public virtual DbSet<Sage> Sages { get; set; }
-    public virtual DbSet<SageBook> SageBooks { get; set; }
+    //public virtual DbSet<SageBook> SageBooks { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["SageBookContext"].ConnectionString);
@@ -26,6 +26,6 @@ public partial class SageBookContext : DbContext
     {
         modelBuilder.ApplyConfiguration(new BookConfiguration());
         modelBuilder.ApplyConfiguration(new SageConfiguration());
-        modelBuilder.ApplyConfiguration(new SageBookConfiguration());
+        //modelBuilder.ApplyConfiguration(new SageBookConfiguration());
     }
 }
