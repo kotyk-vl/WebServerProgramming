@@ -31,11 +31,18 @@ namespace SageBook.Service.Services
 
         public void AddNewBook(BookModel book)
         {
-            _bookRepository.AddNewBook(new Book
+            var newBook = _bookRepository.AddNewBook(new Book
             {
                 Description = book.Description,
                 Name = book.Name,
             });
+
+            book.Id = newBook.BookId;
+
+            if (book.SageIds.Count > 0)
+            {
+                EditBook(book);
+            }
         }
 
         public void EditBook(BookModel book)
