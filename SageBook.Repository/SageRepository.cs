@@ -15,12 +15,7 @@ namespace SageBook.Repository
 
         public IEnumerable<Sage> GetSages()
         {
-            return _context.Sages.Include(x=>x.Books);
-        }
-
-        public Sage GetSagesById(int id)
-        {
-            return _context.Sages.Include(s=>s.Books).First(x => x.SageId == id);
+            return _context.Sages.Include(x => x.Books).AsNoTracking();
         }
 
         public Sage AddNewSage(Sage sage)
@@ -34,9 +29,19 @@ namespace SageBook.Repository
         {
             var sageToUpdate = _context.Sages.First(x => x.SageId == sage.SageId);
 
+            sageToUpdate.Name = sage.Name;
             sageToUpdate.Age = sage.Age;
             sageToUpdate.City = sage.City;
             sageToUpdate.Photo = sage.Photo;
+
+            if (sage.Books.Count > 0)
+            {
+                sageToUpdate.Books.Clear();
+                foreach (var book in sage.Books)
+                {
+                    sageToUpdate.Books.Add(book);
+                }
+            }
 
             _context.SaveChanges();
 

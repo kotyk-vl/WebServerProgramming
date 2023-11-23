@@ -13,14 +13,9 @@ namespace SageBook.Repository
             _context = new SageBookContext();
         }
 
-        public IEnumerable<Book> GetBooks()
+        public IQueryable<Book> GetBooks()
         {
-            return _context.Books.Include(s => s.Sages);
-        }
-
-        public Book GetBooksById(int id)
-        {
-            return _context.Books.Include(s => s.Sages).First(x => x.BookId == id);
+            return _context.Books.Include(s => s.Sages).AsNoTracking();
         }
 
         public Book AddNewBook(Book book)
@@ -32,26 +27,20 @@ namespace SageBook.Repository
 
         public Book EditBook(Book book)
         {
-            var bookToUpdate = _context.Books.FirstOrDefault(x => x.BookId == book.BookId);
+            var bookToUpdate = _context.Books.First(b => b.BookId == book.BookId);
 
-            if (bookToUpdate != null)
+            bookToUpdate.Name = book.Name;
+            bookToUpdate.Description = book.Description;
+
+            if (book.Sages.Count > 0)
             {
-                bookToUpdate.Name = book.Name;
-                bookToUpdate.Description = book.Description;
-
-                if (book.Sages.Count > 0)
+                bookToUpdate.Sages.Clear();
+                foreach (var sage in book.Sages)
                 {
-                    bookToUpdate.Sages.Clear();
-
-                    foreach (var sage in book.Sages)
-                    {
-                        bookToUpdate.Sages.Add(sage);
-                    }
+                    bookToUpdate.Sages.Add(sage);
                 }
-
-                _context.SaveChanges();
             }
-
+            _context.SaveChanges();
             return book;
         }
 
@@ -60,14 +49,6 @@ namespace SageBook.Repository
             var book = _context.Books.First(x => x.BookId == id);
             _context.Books.Remove(book);
             _context.SaveChanges();
-        }
-
-        public List<Book> SearchBook(string searchTerm)
-        {
-            return _context.Books.Include(s => s.Sages).Where(book =>
-                book.Name.Contains(searchTerm)
-                || book.Description.Contains(searchTerm)
-            ).ToList();
         }
     }
 }
