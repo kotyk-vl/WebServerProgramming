@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SageBook.Repository\SageBook.Repository.csproj" />
+    <ProjectReference Include="..\SageBook.Service\SageBook.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>

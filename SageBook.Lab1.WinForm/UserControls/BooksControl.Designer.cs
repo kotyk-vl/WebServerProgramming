@@ -188,10 +188,12 @@
             // 
             // cmbSages
             // 
+            this.cmbSages.BackColor = System.Drawing.SystemColors.Window;
+            this.cmbSages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSages.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbSages.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmbSages.ForeColor = System.Drawing.SystemColors.WindowText;
             this.cmbSages.FormattingEnabled = true;
-            this.cmbSages.Items.AddRange(new object[] {
-            "Select Item"});
             this.cmbSages.Location = new System.Drawing.Point(8, 28);
             this.cmbSages.Name = "cmbSages";
             this.cmbSages.Size = new System.Drawing.Size(136, 28);

@@ -1,73 +1,89 @@
-﻿using SageBook.Data.Models;
+﻿using SageBook.Common.Models;
+using SageBook.Lab1.WinForm.Helpers;
 using SageBook.Repository;
-using SageBook.Repository.Interfaces;
-using System.Collections.Immutable;
+using SageBook.Service.Interfaces;
+using SageBook.Service.Models.Book;
+using SageBook.Service.Models.Sage;
+using SageBook.Service.Services;
 using System.Data;
 
 namespace SageBook.Lab1.WinForm.UserControls
 {
     public partial class BooksControl : UserControl
     {
-        private readonly IBookRepository _bookRepository;
-        private readonly ISageRepository _sageRepository;
+        private readonly IBookService _bookService;
+        private readonly ISageService _sageService;
 
-        private Book _book;
+        private BookModel _book;
+        private List<SageModel> _sages;
 
-        public Book CurrentBook
+        #region PROPERTIES
+
+        public BookModel CurrentBook
         {
             get
             {
                 if (_book == null)
                 {
-                    _book = new Book();
+                    _book = new BookModel();
                 }
                 return _book;
             }
             set { _book = value; }
         }
 
-        private List<Sage> _sages;
-
-        public List<Sage> SelectedSages
+        public List<ComboItem> SelectedSages
         {
             get
             {
                 if (_sages != null)
                 {
-                    return CurrentBook.Sages.Where(s => _sages.Select(x => x.SageId).Contains(s.SageId)).ToList();
+                    return _sages
+                        .Where(s => CurrentBook.SageIds.Contains(s.Id))
+                        .Select(Helper.GetSageList)
+                        .ToList();
                 }
 
-                return new List<Sage>();
+                return new List<ComboItem>();
             }
         }
 
-        public List<Sage> AvailableSages
+        public List<ComboItem> AvailableSages
         {
             get
             {
                 if (_sages != null)
                 {
-                    return _sages.Where(s => !CurrentBook.Sages.Select(x => x.SageId).Contains(s.SageId) || CurrentBook.BookId == 0).ToList();
+                    return _sages
+                        .Where(s => !CurrentBook.SageIds
+                            .Contains(s.Id) || CurrentBook.Id == 0)
+                        .Select(Helper.GetSageList)
+                        .Prepend(new ComboItem { ID = 0, Text = "Select Item" })
+                        .ToList();
                 }
 
-                return new List<Sage>();
+                return new List<ComboItem>();
             }
         }
+
+        #endregion PROPERTIES
 
         public BooksControl()
         {
-            _sages = new List<Sage>();
-            _bookRepository = new BookRepository();
-            _sageRepository = new SageRepository();
+            _sages = new List<SageModel>();
+            _bookService = new BookService(new BookRepository());
+            _sageService = new SageService(new SageRepository());
 
             InitializeComponent();
             InitializeDataGrid();
             InitalizeCollections();
         }
 
-        private Book GetBook()
+        #region PRIVATE METHODS
+
+        private BookModel GetBook()
         {
-            return new Book
+            return new BookModel
             {
                 Name = txtBookName.Text,
                 Description = txtBookDescription.Text
@@ -76,164 +92,188 @@ namespace SageBook.Lab1.WinForm.UserControls
 
         private void InitializeDataGrid()
         {
-            datBooks.DataSource = _bookRepository.GetBooks().ToList();
-            datBooks.Refresh();
+            GetBooks();
         }
 
         private void InitalizeCollections()
         {
             if (datBooks.Rows.Count > 0)
             {
-                var bookId = (int)datBooks.Rows[0].Cells["BookId"].Value;
-                CurrentBook = _bookRepository.GetBooksById(bookId);
-                //CurrentBook = (Book)row.DataBoundItem;
+                var bookId = (int)datBooks.Rows[0].Cells["Id"].Value;
+                SetCurrentBook(bookId);
             }
 
-            _sages = _sageRepository.GetSages().ToList();
+            _sages = _sageService.GetSages().ToList();
 
+            SetAvailableSages();
+            SetSelectedSages();
+        }
+
+        private void SetAvailableSages()
+        {
             cmbSages.DataSource = AvailableSages;
-            cmbSages.DisplayMember = "Name";
-            cmbSages.ValueMember = "SageId";
-            cmbSages.SelectedItem = null;
-            cmbSages.SelectedText = "Select Item";
+            cmbSages.DisplayMember = "Text";
+            cmbSages.ValueMember = "ID";
+            cmbSages.SelectedItem = 0;
+        }
 
+        private void SetSelectedSages()
+        {
             lstSages.DataSource = SelectedSages;
-            lstSages.DisplayMember = "Name";
-            lstSages.ValueMember = "SageId";
+            lstSages.DisplayMember = "Text";
+            lstSages.ValueMember = "ID";
         }
 
-        private void UpsertSageToBook(Book book)
+        private void RefreshCollections()
         {
-            book.Sages.Clear();
-
-            if (_sages.Count > 0)
-            {
-                foreach (var sage in _sages)
-                {
-                    book.Sages.Add(sage);
-                }
-            }
+            cmbSages.DataSource = AvailableSages;
+            lstSages.DataSource = SelectedSages;
         }
 
-        private void btnAddBook_Click(object sender, EventArgs e)
+        private void SetCurrentBook(int bookId)
         {
-            var book = GetBook();
-            _bookRepository.AddNewBook(book);
-
-            if (_sages.Capacity > 0)
-            {
-                UpsertSageToBook(book);
-                _bookRepository.EditBook(book);
-            }
-
-            InitializeDataGrid();
+            CurrentBook = _bookService.GetBookById(bookId) ?? new BookModel();
         }
 
-        private void btnUpdateBook_Click(object sender, EventArgs e)
+        private void ShowMessage(string text, string caption = "Error", MessageBoxButtons button = MessageBoxButtons.OK, MessageBoxIcon icon = MessageBoxIcon.Error)
         {
-            //var id = GetSelectedRow();
-
-            //var book = _bookRepository.GetBooksById(id);
-            //book.Name = txtBookName.Text;
-            //book.Description = txtBookDescription.Text;
-
-            //UpsertSageToBook(book);
-
-            _bookRepository.EditBook(CurrentBook);
-
-            InitializeDataGrid();
+            MessageBox.Show(text, caption, button, icon);
         }
 
-        private void btnBookDelete_Click(object sender, EventArgs e)
+        private BookModel GetSelectedItem()
         {
-            if (datBooks.SelectedRows.Count > 0)
-            {
-                //int id = GetSelectedRow();
-                _bookRepository.DeleteBook(CurrentBook.BookId);
-                InitializeDataGrid();
-            }
+            return (BookModel)datBooks.CurrentRow?.DataBoundItem;
         }
 
-        private int GetSelectedRow()
-        {
-            var selectedIndex = datBooks.SelectedRows[0].Index;
-            var selectedRow = datBooks.Rows[selectedIndex];
-            var id = (int)selectedRow.Cells["BookId"].Value;
-
-            return id;
-        }
-
-        private void btnBookSearch_Click(object sender, EventArgs e)
+        private void GetBooks()
         {
             var searchTerm = txtBookSearch.Text;
 
             if (int.TryParse(searchTerm, out int id))
             {
-                datBooks.DataSource = new List<Book> { _bookRepository.GetBooksById(id) };
+                datBooks.DataSource = new List<BookModel> { _bookService.GetBookById(id) ?? new BookModel() };
+            }
+            else if (!string.IsNullOrEmpty(searchTerm))
+            {
+                datBooks.DataSource = _bookService.SearchBook(searchTerm).ToList();
             }
             else
             {
-                datBooks.DataSource = _bookRepository.SearchBook(searchTerm);
+                datBooks.DataSource = _bookService.GetBooks().ToList();
             }
+            datBooks.Refresh();
+        }
+
+        #endregion PRIVATE METHODS
+
+        #region EVENT_HANDLERS
+
+        private void btnAddBook_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var book = GetBook();
+                book.SageIds.AddRange(CurrentBook.SageIds);
+                _bookService.AddNewBook(book);
+                InitializeDataGrid();
+            }
+            catch (Exception)
+            {
+                ShowMessage("Couldn't add new book");
+            }
+        }
+
+        private void btnUpdateBook_Click(object sender, EventArgs e)
+        {
+            var book = GetBook();
+
+            try
+            {
+                if (GetSelectedItem() == null)
+                {
+                    ShowMessage("Select any row", "Warning", icon: MessageBoxIcon.Warning);
+                    return;
+                }
+
+                book.Id = CurrentBook.Id;
+                book.SageIds.AddRange(CurrentBook.SageIds);
+                _bookService.EditBook(book);
+
+                InitializeDataGrid();
+            }
+            catch (Exception ex)
+            {
+                ShowMessage($"Couldn't update book - {book.Name}");
+            }
+        }
+
+        private void btnBookDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (GetSelectedItem() == null)
+                {
+                    ShowMessage("Select any row", "Warning", icon: MessageBoxIcon.Warning);
+                    return;
+                }
+
+                _bookService.DeleteBook(CurrentBook.Id);
+                InitializeDataGrid();
+            }
+            catch (Exception)
+            {
+                ShowMessage($"Couldn't delete book");
+            }
+        }
+
+        private void btnBookSearch_Click(object sender, EventArgs e)
+        {
+            GetBooks();
         }
 
         private void btnAddSage_Click(object sender, EventArgs e)
         {
-            var selectedSage = (Sage)cmbSages.SelectedItem;
+            var selectedSage = (ComboItem)cmbSages.SelectedItem;
 
-            if (selectedSage != null)
+            if (selectedSage.ID != 0)
             {
-                if (CurrentBook.Sages.Select(x => x.SageId).Contains(selectedSage.SageId))
+                if (CurrentBook.SageIds.Contains(selectedSage.ID))
                     return;
 
-                CurrentBook.Sages.Add(selectedSage);
+                CurrentBook.SageIds.Add(selectedSage.ID);
                 RefreshCollections();
             }
         }
 
         private void btnRemoveSage_Click(object sender, EventArgs e)
         {
-            var selectedSage = (Sage)lstSages.SelectedItem;
+            var selectedSage = (ComboItem)lstSages.SelectedItem;
 
             if (selectedSage != null)
             {
-                if (!CurrentBook.Sages.Select(x => x.SageId).Contains(selectedSage.SageId))
+                if (!CurrentBook.SageIds.Contains(selectedSage.ID))
                     return;
 
-                var sage = CurrentBook.Sages.First(x => x.SageId == selectedSage.SageId);
-
-                CurrentBook.Sages.Remove(sage);
+                CurrentBook.SageIds.Remove(selectedSage.ID);
                 RefreshCollections();
             }
         }
 
-        private void RefreshCollections()
-        {
-            cmbSages.DataSource = AvailableSages;
-            if (cmbSages.Items.Count == 0)
-            {
-                cmbSages.SelectedItem = null;
-                cmbSages.SelectedText = "Select Item";
-            }
-
-            lstSages.DataSource = SelectedSages;
-        }
-
         private void datBooks_SelectionChanged(object sender, EventArgs e)
         {
-            var book = (Book)datBooks.CurrentRow.DataBoundItem;
+            var book = GetSelectedItem();
 
-            if (book == null) { return; }
+            if (book != null)
+            {
+                SetCurrentBook(book.Id);
+                txtBookName.Text = book.Name;
+                txtBookDescription.Text = book.Description;
+                RefreshCollections();
+            }
 
-            CurrentBook = _bookRepository.GetBooksById(book.BookId);
-            txtBookName.Text = book.Name;
-            txtBookDescription.Text = book.Description;
-            RefreshCollections();
-
-            //var existedSages = _bookRepository.GetBooksById(book.BookId).SageBooks.Select(x => x.Sage).ToList();
-            //lstSages.DataSource = existedSages;
-            //cmbSages.DataSource = _sageRepository.GetSages()
-            //    .Where(availableSage => !existedSages.Select(x => x.SageId).Contains(availableSage.SageId)).ToList();
+            return;
         }
+
+        #endregion EVENT_HANDLERS
     }
 }
