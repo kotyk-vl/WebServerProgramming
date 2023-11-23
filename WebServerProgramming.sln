@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SageBook.Lab1.WinForm", "SageBook.Lab1.WinForm\SageBook.Lab1.WinForm.csproj", "{185FB96F-7F9A-4537-AB40-E8FE28A555E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SageBook.Lab1.WinForm", "SageBook.Lab1.WinForm\SageBook.Lab1.WinForm.csproj", "{185FB96F-7F9A-4537-AB40-E8FE28A555E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SageBook.Data", "SageBook.Data\SageBook.Data.csproj", "{04AA75C9-84A9-4D12-BA27-B350686D29BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SageBook.Data", "SageBook.Data\SageBook.Data.csproj", "{04AA75C9-84A9-4D12-BA27-B350686D29BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SageBook.Repository", "SageBook.Repository\SageBook.Repository.csproj", "{BBC93FF2-0B39-46F4-B46B-7CB74B12B9B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SageBook.Repository", "SageBook.Repository\SageBook.Repository.csproj", "{BBC93FF2-0B39-46F4-B46B-7CB74B12B9B0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SageBook.Service", "SageBook.Service\SageBook.Service.csproj", "{57AC21D0-07EE-469B-A6B5-68C8732FFE21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{BBC93FF2-0B39-46F4-B46B-7CB74B12B9B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBC93FF2-0B39-46F4-B46B-7CB74B12B9B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBC93FF2-0B39-46F4-B46B-7CB74B12B9B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57AC21D0-07EE-469B-A6B5-68C8732FFE21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57AC21D0-07EE-469B-A6B5-68C8732FFE21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57AC21D0-07EE-469B-A6B5-68C8732FFE21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57AC21D0-07EE-469B-A6B5-68C8732FFE21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

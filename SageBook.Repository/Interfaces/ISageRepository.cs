@@ -4,7 +4,7 @@ namespace SageBook.Repository.Interfaces
 {
     public interface ISageRepository
     {
-        IEnumerable<Sage> GetSages();
+        IQueryable<Sage> GetSages();
 
         Sage AddNewSage(Sage sage);
 
