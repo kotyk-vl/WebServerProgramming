@@ -41,6 +41,7 @@ namespace SageBook.Lab1.WinForm.UserControls
                     return _sages
                         .Where(s => CurrentBook.SageIds.Contains(s.Id))
                         .Select(Helper.GetSageList)
+                        .OrderBy(i => i.Text)
                         .ToList();
                 }
 
@@ -58,6 +59,7 @@ namespace SageBook.Lab1.WinForm.UserControls
                         .Where(s => !CurrentBook.SageIds
                             .Contains(s.Id) || CurrentBook.Id == 0)
                         .Select(Helper.GetSageList)
+                        .OrderBy(i => i.Text)
                         .Prepend(new ComboItem { ID = 0, Text = "Select Item" })
                         .ToList();
                 }
@@ -191,7 +193,7 @@ namespace SageBook.Lab1.WinForm.UserControls
             {
                 if (GetSelectedItem() == null)
                 {
-                    ShowMessage("Select any row", "Warning", icon: MessageBoxIcon.Warning);
+                    ShowMessage("No row is selected. Select any", "Warning", icon: MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -213,7 +215,7 @@ namespace SageBook.Lab1.WinForm.UserControls
             {
                 if (GetSelectedItem() == null)
                 {
-                    ShowMessage("Select any row", "Warning", icon: MessageBoxIcon.Warning);
+                    ShowMessage("No row is selected. Select any", "Warning", icon: MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -272,6 +274,15 @@ namespace SageBook.Lab1.WinForm.UserControls
             }
 
             return;
+        }
+
+        private void BooksControl_VisibleChanged(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                InitializeDataGrid();
+                InitalizeCollections();
+            }
         }
 
         #endregion EVENT_HANDLERS

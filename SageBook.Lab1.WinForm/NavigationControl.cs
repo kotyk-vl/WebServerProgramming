@@ -26,7 +26,18 @@
         {
             if (index < _userControls.Count())
             {
-                _userControls[index].BringToFront();
+                foreach (var control in _userControls.Select((v, i)=> new { Item = v, Index = i }))
+                {
+                    if (control.Index == index)
+                    {
+                        control.Item.Visible = true;
+                        control.Item.BringToFront();
+                    }
+                    else
+                    {
+                        control.Item.Visible = false;
+                    }
+                }
             }
         }
     }

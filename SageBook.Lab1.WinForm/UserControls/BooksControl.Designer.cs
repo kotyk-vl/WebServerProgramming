@@ -129,18 +129,18 @@
             this.pnlBooksTop.Location = new System.Drawing.Point(0, 0);
             this.pnlBooksTop.Margin = new System.Windows.Forms.Padding(0);
             this.pnlBooksTop.Name = "pnlBooksTop";
-            this.pnlBooksTop.Size = new System.Drawing.Size(691, 25);
+            this.pnlBooksTop.Size = new System.Drawing.Size(691, 35);
             this.pnlBooksTop.TabIndex = 1;
             // 
             // lblBooksHeader
             // 
             this.lblBooksHeader.AutoSize = true;
             this.lblBooksHeader.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblBooksHeader.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblBooksHeader.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblBooksHeader.Location = new System.Drawing.Point(0, 0);
             this.lblBooksHeader.Margin = new System.Windows.Forms.Padding(0);
             this.lblBooksHeader.Name = "lblBooksHeader";
-            this.lblBooksHeader.Size = new System.Drawing.Size(90, 21);
+            this.lblBooksHeader.Size = new System.Drawing.Size(136, 32);
             this.lblBooksHeader.TabIndex = 0;
             this.lblBooksHeader.Text = "Books List:";
             // 
@@ -156,10 +156,10 @@
             this.pnlBooksBody.Controls.Add(this.txtBookName);
             this.pnlBooksBody.Controls.Add(this.datBooks);
             this.pnlBooksBody.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBooksBody.Location = new System.Drawing.Point(0, 25);
+            this.pnlBooksBody.Location = new System.Drawing.Point(0, 35);
             this.pnlBooksBody.Margin = new System.Windows.Forms.Padding(0);
             this.pnlBooksBody.Name = "pnlBooksBody";
-            this.pnlBooksBody.Size = new System.Drawing.Size(691, 399);
+            this.pnlBooksBody.Size = new System.Drawing.Size(691, 389);
             this.pnlBooksBody.TabIndex = 1;
             // 
             // grbSages
@@ -169,7 +169,7 @@
             this.grbSages.Controls.Add(this.btnAddSage);
             this.grbSages.Controls.Add(this.btnRemoveSage);
             this.grbSages.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.grbSages.Location = new System.Drawing.Point(13, 79);
+            this.grbSages.Location = new System.Drawing.Point(13, 63);
             this.grbSages.Name = "grbSages";
             this.grbSages.Size = new System.Drawing.Size(277, 202);
             this.grbSages.TabIndex = 9;
@@ -259,7 +259,7 @@
             // 
             this.lblBookDescription.AutoSize = true;
             this.lblBookDescription.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblBookDescription.Location = new System.Drawing.Point(24, 284);
+            this.lblBookDescription.Location = new System.Drawing.Point(24, 268);
             this.lblBookDescription.Name = "lblBookDescription";
             this.lblBookDescription.Size = new System.Drawing.Size(101, 20);
             this.lblBookDescription.TabIndex = 3;
@@ -269,7 +269,7 @@
             // 
             this.lblBookName.AutoSize = true;
             this.lblBookName.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblBookName.Location = new System.Drawing.Point(24, 19);
+            this.lblBookName.Location = new System.Drawing.Point(21, 0);
             this.lblBookName.Name = "lblBookName";
             this.lblBookName.Size = new System.Drawing.Size(55, 20);
             this.lblBookName.TabIndex = 3;
@@ -296,7 +296,7 @@
             // txtBookName
             // 
             this.txtBookName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtBookName.Location = new System.Drawing.Point(24, 42);
+            this.txtBookName.Location = new System.Drawing.Point(24, 23);
             this.txtBookName.Name = "txtBookName";
             this.txtBookName.Size = new System.Drawing.Size(266, 27);
             this.txtBookName.TabIndex = 2;
@@ -323,6 +323,7 @@
             this.Controls.Add(this.pnlBooksControls);
             this.Name = "BooksControl";
             this.Size = new System.Drawing.Size(691, 462);
+            this.VisibleChanged += new System.EventHandler(this.BooksControl_VisibleChanged);
             this.pnlBooksControls.ResumeLayout(false);
             this.pnlBooksControls.PerformLayout();
             this.pnlBooksTop.ResumeLayout(false);

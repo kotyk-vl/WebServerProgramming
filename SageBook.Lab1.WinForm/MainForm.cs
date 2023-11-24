@@ -7,8 +7,8 @@ namespace SageBook.Lab1.WinForm
         private NavigationControl _navigationControl;
         private NavigationButtons _navigationButtons;
 
-        private Color _btnDefaultColor = Color.AliceBlue;
-        private Color _btnSelectedColor = Color.Blue;
+        private Color _btnDefaultColor = Color.FromArgb(247, 237, 212);
+        private Color _btnSelectedColor = Color.FromArgb(252, 186, 18);
 
         public MainForm()
         {
@@ -22,7 +22,7 @@ namespace SageBook.Lab1.WinForm
             var userControls = new List<UserControl>()
             {
                 new BooksControl(),
-                //new SagesControl()
+                new SagesControl()
             };
 
             _navigationControl = new NavigationControl(userControls, panelMainBody);
@@ -33,7 +33,7 @@ namespace SageBook.Lab1.WinForm
         {
             List<Button> buttons = new List<Button>()
             {
-                btnBooks, 
+                btnBooks,
                 btnSages
             };
 

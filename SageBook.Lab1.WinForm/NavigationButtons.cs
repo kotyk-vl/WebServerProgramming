@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SageBook.Lab1.WinForm
+﻿namespace SageBook.Lab1.WinForm
 {
     public class NavigationButtons
     {
-        List<Button> _buttons;
-        Color _defaultColor;
-        Color _selectedColor;
+        private List<Button> _buttons;
+        private Color _defaultColor;
+        private Color _selectedColor;
 
         public NavigationButtons(List<Button> buttons, Color defaultColor, Color selectedColor)
         {
@@ -38,7 +32,7 @@ namespace SageBook.Lab1.WinForm
                 }
                 else
                 {
-                btn.BackColor = _defaultColor;
+                    btn.BackColor = _defaultColor;
                 }
             }
         }

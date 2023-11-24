@@ -27,20 +27,19 @@ namespace SageBook.Repository
 
         public Sage EditSage(Sage sage)
         {
-            var sageToUpdate = _context.Sages.First(x => x.SageId == sage.SageId);
+            var sageToUpdate = _context.Sages.Include(s => s.Books).First(x => x.SageId == sage.SageId);
 
             sageToUpdate.Name = sage.Name;
             sageToUpdate.Age = sage.Age;
             sageToUpdate.City = sage.City;
             sageToUpdate.Photo = sage.Photo;
 
-            if (sage.Books.Count > 0)
+            sageToUpdate.Books.Clear();
+
+            foreach (var item in sage.Books)
             {
-                sageToUpdate.Books.Clear();
-                foreach (var book in sage.Books)
-                {
-                    sageToUpdate.Books.Add(book);
-                }
+                var book = _context.Books.Find(item.BookId);
+                sageToUpdate.Books.Add(book);
             }
 
             _context.SaveChanges();
@@ -50,7 +49,8 @@ namespace SageBook.Repository
 
         public void DeleteSage(int id)
         {
-            var sage = _context.Sages.First(x => x.SageId == id);
+            var sage = _context.Sages.Include(s => s.Books).First(x => x.SageId == id);
+            sage.Books.Clear();
             _context.Sages.Remove(sage);
             _context.SaveChanges();
         }
