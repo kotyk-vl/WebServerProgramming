@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SageBook.Data.Configurations;
 using System.Configuration;
 
 namespace SageBook.Data.Models;
 
-public partial class SageBookContext : DbContext
+public partial class SageBookContext : IdentityDbContext
 {
     public SageBookContext()
     {
@@ -19,10 +20,25 @@ public partial class SageBookContext : DbContext
     public virtual DbSet<Sage> Sages { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["SageBookContext"].ConnectionString);
+    {
+        base.OnConfiguring(optionsBuilder);
+
+        #region WinForm Connection
+
+        var context = ConfigurationManager.ConnectionStrings["SageBookContext"];
+
+        if (context != null)
+        {
+            optionsBuilder.UseSqlServer(context.ConnectionString);
+        }
+
+        #endregion WinForm Connection
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.ApplyConfiguration(new BookConfiguration());
         modelBuilder.ApplyConfiguration(new SageConfiguration());
     }

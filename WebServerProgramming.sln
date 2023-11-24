@@ -13,6 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SageBook.Service", "SageBoo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SageBook.Common", "SageBook.Common\SageBook.Common.csproj", "{C86951EC-AC7E-4149-BA84-805777902C75}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Labs", "Labs", "{C0FF432C-6F05-4F06-97E9-98426E689373}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SageBook.Lab2.MVC", "SageBook.Lab2.MVC\SageBook.Lab2.MVC.csproj", "{36FF2EDF-6224-4ABC-8CFC-69EE8CD9A6D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SageBook.Migrations", "SageBook.Migrations\SageBook.Migrations.csproj", "{74168D6A-842C-4579-B586-E0B167DE7732}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +45,21 @@ Global
 		{C86951EC-AC7E-4149-BA84-805777902C75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C86951EC-AC7E-4149-BA84-805777902C75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C86951EC-AC7E-4149-BA84-805777902C75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36FF2EDF-6224-4ABC-8CFC-69EE8CD9A6D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36FF2EDF-6224-4ABC-8CFC-69EE8CD9A6D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36FF2EDF-6224-4ABC-8CFC-69EE8CD9A6D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36FF2EDF-6224-4ABC-8CFC-69EE8CD9A6D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74168D6A-842C-4579-B586-E0B167DE7732}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74168D6A-842C-4579-B586-E0B167DE7732}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74168D6A-842C-4579-B586-E0B167DE7732}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74168D6A-842C-4579-B586-E0B167DE7732}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{185FB96F-7F9A-4537-AB40-E8FE28A555E2} = {C0FF432C-6F05-4F06-97E9-98426E689373}
+		{36FF2EDF-6224-4ABC-8CFC-69EE8CD9A6D3} = {C0FF432C-6F05-4F06-97E9-98426E689373}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F67129F8-BDF4-41E0-A88F-08B8054879BD}
