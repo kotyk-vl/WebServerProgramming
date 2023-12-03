@@ -12,8 +12,10 @@ namespace SageBook.Data.Configurations
 
             entity.ToTable("Sage");
 
+            entity.Property(e => e.Name).HasMaxLength(50).IsRequired();
+            entity.Property(e => e.Age).IsRequired();
+            entity.Property(e => e.Photo);
             entity.Property(e => e.City).HasMaxLength(50);
-            entity.Property(e => e.Name).HasMaxLength(50);
         }
     }
 }

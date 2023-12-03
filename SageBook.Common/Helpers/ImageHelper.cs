@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using Microsoft.AspNetCore.Http;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.Versioning;
 
@@ -31,6 +32,20 @@ namespace SageBook.Common.Helpers
             }
 
             return null;
+        }
+
+        public static byte[]? FormFileToByteArray(IFormFile file)
+        {
+            if (file != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    file.CopyTo(ms);
+                    return ms.ToArray();
+                }
+            }
+            else
+                return null;
         }
     }
 }

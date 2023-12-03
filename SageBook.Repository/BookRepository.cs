@@ -13,6 +13,11 @@ namespace SageBook.Repository
             _context = new SageBookContext();
         }
 
+        public BookRepository(SageBookContext context)
+        {
+            _context = context;
+        }
+
         public IQueryable<Book> GetBooks()
         {
             return _context.Books.Include(s => s.Sages).AsNoTracking();

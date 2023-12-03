@@ -108,10 +108,12 @@ namespace SageBook.Lab1.WinForm.UserControls
 
         private void SetSageProperties(SageModel sage)
         {
+            var image = ImageHelper.ImageFromByteArray(sage.Photo);
+
             txtSageName.Text = sage.Name;
             numSageAge.Value = sage.Age;
             txtSageCity.Text = sage.City;
-            pbPhoto.Image = new Bitmap(ImageHelper.ImageFromByteArray(sage.Photo));
+            pbPhoto.Image = image != null ? new Bitmap(image) : image;
         }
 
         private SageModel GetSelectedItem()
