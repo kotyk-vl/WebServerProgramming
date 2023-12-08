@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>SageBook.Lab2_3.MVC_WebAPI</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.11" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.10" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\SageBook.Common\SageBook.Common.csproj" />
+        <ProjectReference Include="..\SageBook.Data\SageBook.Data.csproj" />
+        <ProjectReference Include="..\SageBook.Repository\SageBook.Repository.csproj" />
+        <ProjectReference Include="..\SageBook.Service\SageBook.Service.csproj" />
+        <ProjectReference Include="..\SageBook.Migrations\SageBook.Migrations.csproj" />
+    </ItemGroup>
+
+</Project>

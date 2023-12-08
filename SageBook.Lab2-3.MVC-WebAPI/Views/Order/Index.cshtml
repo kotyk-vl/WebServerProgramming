@@ -1,0 +1,58 @@
+﻿@using SageBook.Lab2_3.MVC_WebAPI.Models.Order;
+@model List<OrderViewModel>
+
+@{
+    ViewData["Title"] = "Order Books";
+}
+
+<div class="">
+    @*    <div class="container mb-3 mt-3">
+    <button class="btn btn-primary btn-grid">Grid View</button>
+    <button class="btn btn-danger btn-list">List View</button>
+
+    </div>*@
+    <div class="container grid-container">
+        <div class="row">
+            @foreach (var book in Model)
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img class="card-img-top" src="https://picsum.photos/362/180" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">@book.Name</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@book.Sages</h6>
+                            <p class="card-text">@book.Description</p>
+                        </div>
+                        <div class="card-body row">
+                            <div class="col-md-6">
+                                <a asp-controller="Order" asp-action="BookOrder" asp-route-id="@book.Id" class="btn btn-success ml-3 mr-auto">Order Now</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a asp-controller="Book" asp-action="Details" asp-route-id="@book.Id" class="ml-auto mr-0 btn btn-outline-primary">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        //function showList(e) {
+        //    var $gridCont = $('.grid-container');
+        //    e.preventDefault();
+        //    $gridCont.hasClass('list-view') ? $gridCont.removeClass('list-view') : $gridCont.addClass('list-view');
+        //}
+        //function gridList(e) {
+        //    var $gridCont = $('.grid-container')
+        //    e.preventDefault();
+        //    $gridCont.removeClass('list-view');
+        //}
+
+        //$(document).on('click', '.btn-grid', gridList);
+        //$(document).on('click', '.btn-list', showList);
+    </script>
+}

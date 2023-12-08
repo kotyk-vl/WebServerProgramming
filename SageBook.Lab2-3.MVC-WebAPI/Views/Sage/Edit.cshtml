@@ -1,0 +1,116 @@
+﻿@model SageBook.Service.Models.Sage.SageModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container">
+    <h4>@Model.Name</h4>
+    <hr />
+    <form asp-action="Edit" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-6">
+                <div id="imgPreview" class="img-thumbnail" style="display:none">
+                    <img class="img-fluid" id="imgTarget" />
+                    <div class="caption">
+                        <a href="#" id="imgLink"><i class="bi bi-trash"></i></a>
+                        <span id="imgDescription"></span>
+                    </div>
+                </div>
+                <div>
+                    <input name="Photo" class="form-control" accept="image/*" type='file' id="imgInput" />
+                </div>
+            </div>
+            <div class="col-6">
+                <input type="hidden" asp-for="Id" class="form-control" />
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for="Name" class="form-control" />
+                    <label asp-for="Name" class="control-label"></label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" asp-for="Age" class="form-control" />
+                    <label asp-for="Age" class="control-label"></label>
+                    <span asp-validation-for="Age" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="City" class="form-control" />
+                    <label asp-for="City" class="control-label"></label>
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <input onclick="location.href='@Url.Action("Index")'" type="button" value="Cancel" class="btn btn-secondary">
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(function () {
+            var photo = @Json.Serialize(Model.Photo);
+
+            if (photo) {
+                var fileInput = $('#imgInput');
+                var data = 'data:image/png;base64,' + photo;
+                var sizeInBytes = 4 * Math.ceil((data.length / 3)) * 0.5624896334383812;
+
+                fetch(data)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const myFile = new File([blob], "noname.png", { type: "image/png" })
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(myFile);
+                        fileInput.prop('files', dataTransfer.files);
+                    });
+
+                loadImage(data, 'image/png', sizeInBytes);
+            };
+
+            $('#imgInput').on('change', function () {
+                var file = this.files;
+                if (file && file[0]) {
+                    readImage(file[0]);
+                }
+            });
+
+            $('#imgLink').on('click', function () {
+                $('#imgInput').val('');
+                $('#imgDescription').val('');
+                $('#imgPreview').hide();
+            });
+        });
+
+        function readImage(file) {
+            var reader = new FileReader;
+
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+                loadImage(_file.target.result, file.type, file.size);
+            }
+        };
+
+        function loadImage(_file, type, fileSize) {
+            var image = new Image;
+            image.src = _file;
+            image.onload = function () {
+                var height = this.height;
+                var width = this.width;
+                var size = ~~(fileSize / 1024) + "KB";
+
+                $('#imgTarget').prop('src', _file);
+                $('#imgDescription').text('Size: ' + size + ', ' + height + 'X' + width + ', type: ' + type);
+                $('#imgPreview').show();
+            };
+        }
+    </script>
+}
