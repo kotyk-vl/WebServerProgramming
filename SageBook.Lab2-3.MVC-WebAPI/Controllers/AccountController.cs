@@ -4,7 +4,7 @@ using SageBook.Lab2_3.MVC_WebAPI.Models.Account;
 
 namespace SageBook.Lab2_3.MVC_WebAPI.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : SageBaseController
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -22,7 +22,7 @@ namespace SageBook.Lab2_3.MVC_WebAPI.Controllers
 
             if (string.IsNullOrEmpty(model.ReturnUrl))
             {
-                model.ReturnUrl = Url.Action("Index", "Home");
+                model.ReturnUrl = Url.Action("Index", "Order");
             }
             return View(model);
         }
@@ -42,7 +42,7 @@ namespace SageBook.Lab2_3.MVC_WebAPI.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Order");
                     }
                 }
                 else
@@ -58,7 +58,8 @@ namespace SageBook.Lab2_3.MVC_WebAPI.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            ClearOrders();
+            return RedirectToAction("Index", "Order");
         }
 
         [HttpGet]
@@ -78,7 +79,7 @@ namespace SageBook.Lab2_3.MVC_WebAPI.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Order");
                 }
                 else
                 {

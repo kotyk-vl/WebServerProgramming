@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SageBook.Common.Helpers;
 using SageBook.Service.Interfaces;
 using SageBook.Service.Models.Sage;
 
 namespace SageBook.Lab2.MVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SageController : Controller
     {
         private readonly ISageService _sageService;

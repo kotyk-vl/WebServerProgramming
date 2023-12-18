@@ -1,38 +1,37 @@
-﻿@model SageBook.Service.Models.Book.BookModel
+﻿@using SageBook.Lab2_3.MVC_WebAPI.Models.Book;
+@model BookViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "New Book";
 }
 
-<h1>Create</h1>
-
-<h4>BookModel</h4>
+<h4>New Book</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-6">
+            <input type="hidden" asp-for="Id" class="form-control" />
+            <div class="form-floating mb-3">
+                <input type="text" asp-for="Name" class="form-control" />
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-floating mb-3">
+                <input type="text" asp-for="Description" class="form-control" />
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+        </div>
+        <div class="form-group mt-3">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <input onclick="location.href='@Url.Action("Index")'" type="button" value="Cancel" class="btn btn-secondary">
+        </div>
+    </form>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

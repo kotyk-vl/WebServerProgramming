@@ -37,6 +37,7 @@ namespace SageBook.Lab2_3.MVC_WebAPI
                 .AddEntityFrameworkStores<SageBookContext>()
                 .AddDefaultTokenProviders();
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -55,6 +56,7 @@ namespace SageBook.Lab2_3.MVC_WebAPI
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "default",
@@ -70,6 +72,7 @@ namespace SageBook.Lab2_3.MVC_WebAPI
         {
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<ISageRepository, SageRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             return services;
         }
@@ -78,6 +81,7 @@ namespace SageBook.Lab2_3.MVC_WebAPI
         {
             services.AddScoped<ISageService, SageService>();
             services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             return services;
         }

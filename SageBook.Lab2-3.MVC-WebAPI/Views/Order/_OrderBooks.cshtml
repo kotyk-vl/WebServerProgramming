@@ -1,0 +1,41 @@
+﻿@using SageBook.Service.Models.Book;
+@model List<BookModel>
+
+@{
+    var total = Model.Count;
+}
+
+
+<a class="me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink"
+   role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="bi bi-cart"></i>
+    <span class="badge rounded-pill badge-notification bg-danger">@Model.Count</span>
+</a>
+<ul class="dropdown-menu dropdown-cart" role="menu">
+    @if (total > 0)
+    {
+        foreach (var orderBook in Model)
+        {
+            <li>
+                <span class="item">
+                    <span class="item-left">
+                        <span class="item-info">
+                            <span>@orderBook.Name</span>
+                            @*<span>@orderBook.Description</span>*@
+                        </span>
+                    </span>
+                    <span class="item-right" id="cancelBtns">
+                        <a asp-controller="Order" asp-action="CancelOrder" asp-route-id="@orderBook.Id" id="cancelBtn_@orderBook.Id" class="btn btn-close pull-right"></a>
+                    </span>
+                </span>
+            </li>
+        }
+        <div class="d-grid justify-content-md-end me-2 ml-auto">
+            <a asp-controller="Order" asp-action="CompleteOrder" class="btn btn-xs btn-success pull-right">Complete</a>
+        </div>
+    }
+    else
+    {
+        <li><div class="text-center">No order books</div></li>
+    }
+</ul>

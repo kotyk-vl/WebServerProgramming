@@ -1,4 +1,5 @@
-﻿@using SageBook.Lab2_3.MVC_WebAPI.Models.Order;
+﻿@using Microsoft.AspNetCore.Identity;
+@using SageBook.Lab2_3.MVC_WebAPI.Models.Order;
 @model List<OrderViewModel>
 
 @{
@@ -6,11 +7,6 @@
 }
 
 <div class="">
-    @*    <div class="container mb-3 mt-3">
-    <button class="btn btn-primary btn-grid">Grid View</button>
-    <button class="btn btn-danger btn-list">List View</button>
-
-    </div>*@
     <div class="container grid-container">
         <div class="row">
             @foreach (var book in Model)
@@ -24,8 +20,8 @@
                             <p class="card-text">@book.Description</p>
                         </div>
                         <div class="card-body row">
-                            <div class="col-md-6">
-                                <a asp-controller="Order" asp-action="BookOrder" asp-route-id="@book.Id" class="btn btn-success ml-3 mr-auto">Order Now</a>
+                            <div class="col-md-6" id="orderNowDiv">
+                                <input id="orderBtn_@book.Id" type="button" class="btn btn-success ml-3 mr-auto" value="Order Now" />
                             </div>
                             <div class="col-md-6">
                                 <a asp-controller="Book" asp-action="Details" asp-route-id="@book.Id" class="ml-auto mr-0 btn btn-outline-primary">Details</a>
@@ -41,18 +37,14 @@
 
 @section Scripts {
     <script>
-        //function showList(e) {
-        //    var $gridCont = $('.grid-container');
-        //    e.preventDefault();
-        //    $gridCont.hasClass('list-view') ? $gridCont.removeClass('list-view') : $gridCont.addClass('list-view');
-        //}
-        //function gridList(e) {
-        //    var $gridCont = $('.grid-container')
-        //    e.preventDefault();
-        //    $gridCont.removeClass('list-view');
-        //}
+        $(function () {
+            var orderNowBtn = $('#orderNowDiv input[type="button"]');
 
-        //$(document).on('click', '.btn-grid', gridList);
-        //$(document).on('click', '.btn-list', showList);
+            $(orderNowBtn).on('click', function () {
+                var id = $(this)[0].id.substring(9);
+                var url = `@Url.Action("BookOrder","Order")?id=${id}`;
+                $("#orders-view").load(url);
+            });
+        });
     </script>
 }

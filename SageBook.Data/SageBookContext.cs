@@ -19,6 +19,8 @@ public partial class SageBookContext : IdentityDbContext
     public virtual DbSet<Book> Books { get; set; }
     public virtual DbSet<Sage> Sages { get; set; }
 
+    public virtual DbSet<Order> Orders { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
@@ -41,5 +43,6 @@ public partial class SageBookContext : IdentityDbContext
 
         modelBuilder.ApplyConfiguration(new BookConfiguration());
         modelBuilder.ApplyConfiguration(new SageConfiguration());
+        modelBuilder.ApplyConfiguration(new OrderConfiguration());
     }
 }

@@ -33,44 +33,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Book" asp-action="Index">Books</a>
+                        </li>
                         @if (isAdmin)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Sage" asp-action="Index">Sages</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Book" asp-action="Index">Books</a>
-                            </li>
                         }
                     </ul>
-                    <ul class="navbar-nav d-flex flex-row me-1">
+                    <ul class="navbar-nav d-flex flex-row me-3">
                         <li class="nav-item me-3 me-lg-0">
                             <div class="dropdown">
-                                <a class="me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink"
-                                   role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-cart"></i>
-                                    <span class="badge rounded-pill badge-notification bg-danger">1</span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-cart" role="menu">
-                                    <li>
-                                        <span class="item">
-                                            <span class="item-left">
-                                                <span class="item-info">
-                                                    <span>Item name</span>
-                                                    <span>23$</span>
-                                                </span>
-                                            </span>
-                                            <span class="item-right">
-                                                <button class="btn btn-xs btn-danger pull-right">x</button>
-                                            </span>
-                                        </span>
-                                    </li>
-                                </ul>
+                                <div id="orders-view" data-url="@Url.Action(action: "GetOrderBooks", controller: "Order")"></div>
                             </div>
                         </li>
                     </ul>
-                    <ul class="navbar-nav">
-
+                    <ul class="navbar-nav me-2">
                         @if (isAuth)
                         {
                             if (isAdmin)
@@ -125,6 +105,12 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(function () {
+            var url = $("#orders-view").data("url");
+            $("#orders-view").load(url);
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
