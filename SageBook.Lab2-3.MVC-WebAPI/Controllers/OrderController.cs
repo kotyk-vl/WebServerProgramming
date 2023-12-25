@@ -57,6 +57,7 @@ namespace SageBook.Lab2_3.MVC_WebAPI.Controllers
 
             if (orders.Select(x => x.Id).Contains(id))
             {
+                //Do nothing
             }
             else
             {

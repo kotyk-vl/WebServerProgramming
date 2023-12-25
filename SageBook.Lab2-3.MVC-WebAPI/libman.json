@@ -1,11 +1,17 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-    "libraries": [
-        {
-            "provider": "cdnjs",
-            "library": "bootstrap-icons@1.11.2",
-            "destination": "wwwroot/lib/bootstrap-icons/"
-        }
-    ]
+  "libraries": [
+    {
+      "library": "bootstrap-icons@1.11.2",
+      "destination": "wwwroot/lib/bootstrap-icons/"
+    },
+    {
+      "library": "moment.js@2.29.4",
+      "destination": "wwwroot/lib/moment.js/",
+      "files": [
+        "moment.min.js"
+      ]
+    }
+  ]
 }

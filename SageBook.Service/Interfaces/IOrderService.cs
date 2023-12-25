@@ -6,8 +6,14 @@ namespace SageBook.Service.Interfaces
     {
         IQueryable<OrderModel> GetOrders();
 
+        OrderModel? GetOrderById(int id);
+
         OrderModel? GetOrderByUserId(string userId);
 
-        void AddNewOrder(OrderModel order);
+        OrderModel AddNewOrder(OrderModel order);
+
+        OrderModel EditOrder(OrderModel order);
+
+        void DeleteOrder(int id);
     }
 }

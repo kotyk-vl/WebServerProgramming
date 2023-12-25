@@ -32,5 +32,21 @@ namespace SageBook.Repository
             _context.SaveChanges();
             return order;
         }
+
+        public Order EditOrder(Order order)
+        {
+            var orderToUpdate = _context.Orders.FirstOrDefault(x => x.OrderId == order.OrderId);
+            orderToUpdate.CanceledDate = DateTime.Now;
+            _context.SaveChanges();
+
+            return orderToUpdate;
+        }
+
+        public void DeleteOrder(int id)
+        {
+            var order = _context.Orders.First(x => x.OrderId == id);
+            _context.Orders.Remove(order);
+            _context.SaveChanges();
+        }
     }
 }

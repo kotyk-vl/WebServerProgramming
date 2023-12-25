@@ -7,5 +7,9 @@ namespace SageBook.Repository.Interfaces
         IQueryable<Order> GetOrders();
 
         Order AddNewOrder(Order order);
+
+        Order EditOrder(Order order);
+
+        void DeleteOrder(int id);
     }
 }
