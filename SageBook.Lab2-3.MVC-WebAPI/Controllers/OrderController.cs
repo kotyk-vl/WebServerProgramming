@@ -90,7 +90,6 @@ namespace SageBook.Lab2_3.MVC_WebAPI.Controllers
 
             if (!isSignedIn)
             {
-                //return PartialView("_AuthModal");
                 return RedirectToAction("Index");
             }
 

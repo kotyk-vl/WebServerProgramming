@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SageBook.Migrations", "Sage
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SageBook.Lab2-3.MVC-WebAPI", "SageBook.Lab2-3.MVC-WebAPI\SageBook.Lab2-3.MVC-WebAPI.csproj", "{195C0E85-07B3-426D-A36F-2CB211C3F11D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp.Lab4.SignalR", "ChatApp.Lab4.SignalR\ChatApp.Lab4.SignalR.csproj", "{0C3DA506-3464-42D4-B723-23B77CD6C012}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{195C0E85-07B3-426D-A36F-2CB211C3F11D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{195C0E85-07B3-426D-A36F-2CB211C3F11D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{195C0E85-07B3-426D-A36F-2CB211C3F11D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C3DA506-3464-42D4-B723-23B77CD6C012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C3DA506-3464-42D4-B723-23B77CD6C012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C3DA506-3464-42D4-B723-23B77CD6C012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C3DA506-3464-42D4-B723-23B77CD6C012}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{185FB96F-7F9A-4537-AB40-E8FE28A555E2} = {C0FF432C-6F05-4F06-97E9-98426E689373}
 		{195C0E85-07B3-426D-A36F-2CB211C3F11D} = {C0FF432C-6F05-4F06-97E9-98426E689373}
+		{0C3DA506-3464-42D4-B723-23B77CD6C012} = {C0FF432C-6F05-4F06-97E9-98426E689373}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F67129F8-BDF4-41E0-A88F-08B8054879BD}

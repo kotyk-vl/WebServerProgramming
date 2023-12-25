@@ -1,0 +1,133 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100wh;
+    display: flex;
+    flex-direction: column;
+}
+.navbar {
+    min-height: 60px;
+    z-index: 100;
+    box-shadow: 0px 1px 2px 0px #333;
+}
+.main {
+    background-color: white;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+}
+.side-menu {
+    min-width: 200px;
+    max-width: 200px;
+    z-index: 50;
+    box-shadow: 1px 0px 2px 0px #333;
+    display: flex;
+    flex-direction: column;
+}
+.chat {
+    background-color: white;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+}
+
+.chat-body {
+    background-color: white;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-end; */
+    padding-bottom: 1rem;
+    overflow: auto;
+}
+
+
+.message {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.2rem;
+}
+.message:first-child {
+    margin-top: auto;
+}
+.message > * {
+    padding: 0.2rem;
+}
+.message > header {
+    font-weight: bold;
+    min-width: 100px;
+    text-align: right;
+}
+.message > p {
+    margin: 0;
+    flex-grow: 5;
+}
+.message > footer {
+    min-width: 60px;
+    text-align: center;
+}
+
+.chat-input {
+    min-height: 70px;
+    z-index: 25;
+    box-shadow: 1px -1px 2px 0px #333;
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+}
+.chat-input>input {
+    flex-grow: 2;
+}
+.chat-input>button {
+    flex-grow: 1;
+}
+.modal {
+    display: none;
+    position: fixed;
+    min-height: 100vh;
+    min-width: 100vw;
+    z-index: 200;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.801);
+}
+.modal.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-body {
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    position: relative;
+}
+.modal-body>header {
+    color: white;
+    font-size: 24px;
+}
+.modal-body> * {
+    margin-top: 0.5rem;
+}
+.modal-body>div>input {
+    width: 100%;
+}
+.modal-body> footer {
+    text-align: center;
+}
+.modal-body > .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    margin-top: 0;
+}
+
+.footer {
+    width: 68%;
+    position: fixed;
+    bottom: 10px;
+}
